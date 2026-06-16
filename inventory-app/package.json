@@ -1,0 +1,25 @@
+{
+  "name": "inventory-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^9"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4",
+    "cds-plugin-ui5": "^0.13.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-products": "cds watch --open com.inventory.products/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manageproducts": "cds watch --open com.inventory.manageproducts/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/products",
+    "app/manageproducts",
+    "app/adminproducts"
+  ]
+}

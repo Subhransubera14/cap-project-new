@@ -1,0 +1,5 @@
+ID,poNumber,supplier_ID,orderDate,requiredDate,status,priority,totalAmount,notes,approvedBy,rejectionNote
+dddddddd-dddd-dddd-dddd-dddddddddddd,PO-00001,11111111-1111-1111-1111-111111111111,2026-06-01,2026-06-30,Draft,High,0.00,First purchase order,,
+eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee,PO-00002,22222222-2222-2222-2222-222222222222,2026-06-02,2026-07-15,Pending,Medium,0.00,Office furniture order,,
+ffffffff-ffff-ffff-ffff-ffffffffffff,PO-00003,11111111-1111-1111-1111-111111111111,2026-06-03,2026-07-01,Approved,Urgent,150000.00,Laptop bulk order,approver,
+EOF

@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <VBox id="stockVBox" class="sapUiSmallMargin">
+    <Title id="stockTitle" text="Order Progress" level="H3"/>
+    <ProgressIndicator
+      id="stockProgress"
+      percentValue="{progressValue}"
+      displayValue="{progressValue}%"
+      state="{= ${statusCriticality} === 1 ? 'Error' : ${statusCriticality} === 2 ? 'Warning' : 'Success'}"
+    />
+    <Text id="reorderText" text="Status: {status}" class="sapUiTinyMarginTop"/>
+  </VBox>
+</core:FragmentDefinition>

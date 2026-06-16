@@ -1,0 +1,5 @@
+ID,po_ID,product_ID,quantity,unitPrice,totalPrice,receivedQty,notes
+12121212-1212-1212-1212-121212121212,dddddddd-dddd-dddd-dddd-dddddddddddd,aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,2,75000.00,150000.00,0,Laptops for new team
+23232323-2323-2323-2323-232323232323,eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee,bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb,5,12000.00,60000.00,0,Office chairs
+34343434-3434-3434-3434-343434343434,ffffffff-ffff-ffff-ffff-ffffffffffff,aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,2,75000.00,150000.00,0,Approved laptops
+EOF

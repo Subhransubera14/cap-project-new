@@ -1,0 +1,73 @@
+@base = http://localhost:4004/procurement
+
+### ═══════ SETUP ═══════
+
+### Create supplier
+POST {{base}}/Suppliers
+Content-Type: application/json
+
+{ "supplierName": "Global Parts Ltd", "contactPerson": "John Smith",
+  "email": "john@globalparts.com", "phone": "+44-20-1234", "city": "London" }
+
+### Create product
+POST {{base}}/Products
+Content-Type: application/json
+
+{ "productName": "Widget Pro", "description": "Premium widget",
+  "unitPrice": 25.00, "stock": 5, "minStock": 20, "unit": "EA",
+  "currency_code": "USD", "supplier_ID": "11111111-1111-1111-1111-111111111111" }
+
+### ═══════ PO WORKFLOW ═══════
+
+### Create PO (auto-generates PO number!)
+POST {{base}}/PurchaseOrders
+Content-Type: application/json
+
+{ "supplier_ID": "11111111-1111-1111-1111-111111111111", "requiredDate": "2026-06-15",
+  "priority": "High", "currency_code": "USD",
+  "notes": "Urgent restock needed" }
+
+### Add item
+POST {{base}}/PurchaseOrderItems
+Content-Type: application/json
+
+{ "po_ID": "dddddddd-dddd-dddd-dddd-dddddddddddd", "product_ID": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+  "quantity": 100, "unitPrice": 18.50, "currency_code": "USD" }
+
+### Get summary before submitting
+GET {{base}}/PurchaseOrders(dddddddd-dddd-dddd-dddd-dddddddddddd)/ProcurementService.getSummary()
+
+### Submit
+POST {{base}}/PurchaseOrders(dddddddd-dddd-dddd-dddd-dddddddddddd)/ProcurementService.submit
+Content-Type: application/json
+
+{}
+
+### Approve
+POST {{base}}/PurchaseOrders(dddddddd-dddd-dddd-dddd-dddddddddddd)/ProcurementService.approve
+Content-Type: application/json
+
+{ "comment": "Good price, approved" }
+
+### Mark as ordered
+POST {{base}}/PurchaseOrders(dddddddd-dddd-dddd-dddd-dddddddddddd)/ProcurementService.markOrdered
+Content-Type: application/json
+
+{ "referenceNumber": "SUP-REF-2026-001" }
+
+### Receive goods (stock goes from 5 to 105!)
+POST {{base}}/PurchaseOrders(dddddddd-dddd-dddd-dddd-dddddddddddd)/ProcurementService.receiveGoods
+Content-Type: application/json
+
+{ "notes": "All items in good condition" }
+
+### ═══════ VERIFY ═══════
+
+### Check product stock
+GET {{base}}/Products(aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa)?$select=productName,stock
+
+### Dashboard
+GET {{base}}/getDashboard()
+
+### Low stock check
+GET {{base}}/getLowStockProducts(threshold=5)

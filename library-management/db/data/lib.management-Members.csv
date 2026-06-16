@@ -1,0 +1,4 @@
+ID;memberNumber;firstName;lastName;email;phone;address;joinDate;memberType;maxBooks;isActive
+m1m1m1m1-1111-1111-1111-111111111111;LIB-001;Priya;Sharma;priya@email.com;9876543210;Bangalore, India;2024-01-15;Faculty;5;true
+m2m2m2m2-2222-2222-2222-222222222222;LIB-002;Rahul;Kumar;rahul@email.com;9876543211;Mumbai, India;2024-03-20;Student;3;true
+m3m3m3m3-3333-3333-3333-333333333333;LIB-003;Sneha;Patel;sneha@email.com;9876543212;Delhi, India;2024-06-10;General;4;true

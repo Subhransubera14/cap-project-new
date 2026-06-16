@@ -1,0 +1,5 @@
+# GET http://localhost:4004/hr/Employees?$expand=department
+
+# GET http://localhost:4004/hr/Projects
+
+# GET http://localhost:4004/hr/Employees?$expand=department,assignments,skills

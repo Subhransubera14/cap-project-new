@@ -1,0 +1,554 @@
+# GET http://localhost:4004/catalog/Books
+
+# GET http://localhost:4004/catalog/Books(b1000001-0000-0000-0000-000000000001)
+
+# GET http://localhost:4004/catalog/Authors
+
+# GET http://localhost:4004/catalog/Books?$expand=author
+
+# GET http://localhost:4004/catalog/Authors?$expand=books
+
+# GET http://localhost:4004/catalog/Books?$filter=genre eq 'Fantasy'
+
+# GET http://localhost:4004/catalog/Books?$orderby=price desc
+
+# GET http://localhost:4004/catalog/Books?$top=3
+
+# GET http://localhost:4004/catalog/$metadata
+
+# GET http://localhost:4004/catalog/Authors?$select=name,email
+
+
+### Create a new author (should work in admin!)
+# POST http://localhost:4004/admin/Authors
+# Content-Type: application/json
+
+# {
+#   "name": "Dan Brown",
+#   "country": "United States",
+#   "email": "dan@example.com"
+# }
+
+
+
+### Create a book for the new author
+# POST http://localhost:4004/admin/Books
+# Content-Type: application/json
+
+# {
+#   "title": "The Da Vinci Code",
+#   "genre": "Thriller",
+#   "price": 14.99,
+#   "stock": 100,
+#   "rating": 4.2,
+#   "isbn": "9780307474278",
+#   "author_ID": "<paste-the-new-author-ID-here>"
+# }
+
+
+# GET http://localhost:4004/catalog/Authors?$select=name,email
+
+# GET http://localhost:4004/admin/Authors
+
+# GET http://localhost:4004/catalog/Authors
+
+
+
+# GET http://localhost:4004/catalog/Books?$select=title,author
+
+# GET http://localhost:4004/catalog/Books?$select=title&$expand=author($select=name)
+
+
+
+
+
+// Cheapest books first (ascending is default)
+# GET http://localhost:4004/catalog/Books?$orderby=price
+
+// Most expensive books first
+# GET http://localhost:4004/catalog/Books?$orderby=price desc
+
+// Highest rated books first
+# GET http://localhost:4004/catalog/Books?$orderby=rating desc
+
+// Alphabetical by title
+# GET http://localhost:4004/catalog/Books?$orderby=title
+
+// Sort by genre, then by title within each genre
+# GET http://localhost:4004/catalog/Books?$orderby=genre,title
+
+// Newest orders first, then by amount descending
+# GET http://localhost:4004/sales/Orders?$orderby=orderDate desc,grossAmount desc
+
+// Sort by multiple criteria with mixed directions
+# GET http://localhost:4004/catalog/Books?$orderby=genre asc,price desc
+
+
+
+
+
+
+// First 5 books
+# GET http://localhost:4004/catalog/Books?$top=5
+
+// First 5 books, sorted by price
+# GET http://localhost:4004/catalog/Books?$orderby=price&$top=3
+
+// Page 1: First 10 items
+# GET http://localhost:4004/catalog/Books?$top=10&$skip=0
+
+// Page 2: Next 10 items
+# GET http://localhost:4004/catalog/Books?$top=10&$skip=1
+
+// Page 3: Next 10 items
+# GET http://localhost:4004/catalog/Books?$top=10&$skip=2
+
+// Top 3 most expensive books
+# GET http://localhost:4004/catalog/Books?$orderby=price desc&$top=3
+
+// Second page of results, 20 per page, sorted by title
+# GET http://localhost:4004/catalog/Books?$orderby=title&$top=2&$skip=2
+
+
+
+
+
+//Get all books with their author name
+# GET http://localhost:4004/catalog/Books?$expand=author($select=name)
+
+
+//Get all authors with their list of books (title only)
+#  GET http://localhost:4004/catalog/Authors?$expand=books($select=title)
+
+
+//Get orders with customer details and order items
+#  GET http://localhost:4004/sales/Orders?$expand=customer,items
+
+
+//Get products with supplier name and category name
+# GET http://localhost:4004/sales/Products?$expand=supplier($select=supplierName),category($select=categoryName)
+
+
+# Get the 5 most recent orders with items and product names
+# GET http://localhost:4004/sales/Orders?$orderby=orderDate desc&$top=5&$expand=items($expand=product($select=productName))
+
+
+
+### Filter: Exact string match
+# GET http://localhost:4004/catalog/Books?$filter=genre eq 'Fantasy'
+
+# ### Filter: Number comparison
+# GET http://localhost:4004/catalog/Books?$filter=price gt 10
+
+# ### Filter: Boolean
+# GET http://localhost:4004/catalog/Books?$filter=stock gt 0
+
+# ### Filter: Date comparison
+# GET http://localhost:4004/catalog/Books?$filter=publishDate gt 1990-01-01
+
+# ### Filter: String contains (case-sensitive)
+# GET http://localhost:4004/catalog/Books?$filter=contains(title,'Potter')
+
+# ### Filter: String contains (case-insensitive)
+# GET http://localhost:4004/catalog/Books?$filter=contains(tolower(title),'potter')
+
+# ### Filter: Starts with
+# GET http://localhost:4004/catalog/Authors?$filter=startswith(name,'J')
+
+# ### Filter: Combined with AND
+# GET http://localhost:4004/catalog/Books?$filter=price gt 10 and rating ge 4.5
+
+# ### Filter: Combined with OR
+# GET http://localhost:4004/catalog/Books?$filter=genre eq 'Fantasy' or genre eq 'Mystery'
+
+# ### Filter: Complex with parentheses
+# GET http://localhost:4004/catalog/Books?$filter=(genre eq 'Fantasy' or genre eq 'Fiction') and price lt 15
+
+# ### Filter: Null check
+# GET http://localhost:4004/catalog/Books?$filter=isbn ne null
+
+
+
+
+
+
+
+# ### Select: Two fields only
+# GET http://localhost:4004/catalog/Books?$select=title,price
+
+# ### Select: Multiple fields
+# GET http://localhost:4004/catalog/Books?$select=ID,title,genre,price,rating
+
+# ### Select: Combined with filter
+# GET http://localhost:4004/catalog/Books?$select=title,price&$filter=genre eq 'Fantasy'
+
+
+
+
+
+
+# ### Sort: Ascending (default)
+# GET http://localhost:4004/catalog/Books?$orderby=price
+
+# ### Sort: Descending
+# GET http://localhost:4004/catalog/Books?$orderby=price desc
+
+# ### Sort: Multiple columns
+# GET http://localhost:4004/catalog/Books?$orderby=genre,price desc
+
+# ### Sort: Combined with select
+# GET http://localhost:4004/catalog/Books?$select=title,price,rating&$orderby=rating desc
+
+
+
+
+
+
+# ### Top: First 3 records
+# GET http://localhost:4004/catalog/Books?$top=3
+
+# ### Top 3 highest rated
+# GET http://localhost:4004/catalog/Books?$orderby=rating desc&$top=3
+
+# ### Pagination: Page 1 (3 per page)
+# GET http://localhost:4004/catalog/Books?$orderby=title&$top=3&$skip=0
+
+# ### Pagination: Page 2
+# GET http://localhost:4004/catalog/Books?$orderby=title&$top=3&$skip=3
+
+# ### Pagination: With count
+# GET http://localhost:4004/catalog/Books?$orderby=title&$top=3&$skip=0&$count=true
+
+
+
+
+
+
+
+# ### Count: Total books
+# GET http://localhost:4004/catalog/Books/$count
+
+# ### Count: With filter (how many Fantasy books?)
+# GET http://localhost:4004/catalog/Books/$count?$filter=genre eq 'Fantasy'
+
+# ### Count: Inline with results
+# GET http://localhost:4004/catalog/Books?$count=true
+
+
+
+
+
+
+
+# ### Expand: Books with author
+# GET http://localhost:4004/catalog/Books?$expand=author
+
+# ### Expand: Authors with their books
+# GET http://localhost:4004/catalog/Authors?$expand=books
+
+# ### Expand: With $select inside
+# GET http://localhost:4004/catalog/Books?$expand=author($select=name,country)
+
+# ### Expand: Multiple associations
+# # (if your model has supplier and category)
+# GET http://localhost:4004/sales/Products?$expand=supplier,category
+
+# ### Expand: Nested (deep)
+# GET http://localhost:4004/sales/Orders?$expand=items($expand=product)
+
+
+
+
+
+
+
+
+# ### Product List Page: filtered, sorted, paginated, with count
+# GET http://localhost:4004/catalog/Books?$filter=rating ge 4.0&$select=title,price,rating,genre&$orderby=rating desc&$top=10&$skip=0&$count=true
+
+# ### Detail View: single record with expanded relations
+# GET http://localhost:4004/catalog/Books(b1000001-0000-0000-0000-000000000001)?$expand=author($select=name,country)
+
+# ### Search-style: find by title keyword, return minimal data
+# GET http://localhost:4004/catalog/Books?$filter=contains(tolower(title),'the')&$select=ID,title&$top=5&$orderby=title
+
+# ### Report: All books by UK authors, sorted by rating
+# GET http://localhost:4004/catalog/Authors?$filter=country eq 'United Kingdom'&$expand=books($orderby=rating desc;$select=title,rating)
+
+# ### Dashboard: Highest rated book per result
+# GET http://localhost:4004/catalog/Books?$orderby=rating desc&$top=1&$select=title,rating,genre&$expand=author($select=name)
+
+
+
+
+
+
+
+
+## Business Scenario Quiz
+
+# GET http://localhost:4004/sales/Products
+
+# GET http://localhost:4004/sales/Products ?$filter=contains(tolower(productName),'laptop') &$select=productName,price &$orderby=price &$top=5
+
+# GET http://localhost:4004/sales/Orders ?$filter=customer_ID eq c123-abc and orderDate gt 2025-06-01 &$orderby=orderDate desc
+
+# POST http://localhost:4004/admin/Books
+# Content-Type: application/json
+
+# {
+#   "title": "The Great Gatsby",
+#   "genre": "Fiction",
+#   "price": 10.99,
+#   "stock": 50,
+#   "author_ID": "a1000001-0000-0000-0000-000000000003"
+# }
+
+# GET http://localhost:4004/catalog/Books(b1000001-0000-0000-0000-000000000001)/author
+
+
+# @base = http://localhost:4004/admin
+
+# ### 1.1 Create an Author
+# POST {{base}}/Authors
+# Content-Type: application/json
+
+# {
+#   "name": "Dan Brown",
+#   "country": "United States",
+#   "email": "dan.brown@example.com"
+# }
+
+# ### 1.2 Create a Book (use the author ID from 1.1 response)
+# POST {{base}}/Books
+# Content-Type: application/json
+
+# {
+#   "title": "The Da Vinci Code",
+#   "genre": "Thriller",
+#   "price": 14.99,
+#   "stock": 85,
+#   "rating": 4.1,
+#   "isbn": "9780307474278",
+#   "author_ID": "PASTE-AUTHOR-ID-HERE"
+# }
+
+# ### 1.3 Create another Book (same author)
+# POST {{base}}/Books
+# Content-Type: application/json
+
+# {
+#   "title": "Angels & Demons",
+#   "genre": "Thriller",
+#   "price": 12.99,
+#   "stock": 60,
+#   "rating": 4.0,
+#   "isbn": "9780743493468",
+#   "author_ID": "PASTE-AUTHOR-ID-HERE"
+# }
+
+# ### 1.4 Create with missing required field (should it fail?)
+# POST {{base}}/Books
+# Content-Type: application/json
+
+# {
+#   "price": 9.99
+# }
+
+# ### 1.5 Create with wrong data type (string for price)
+# POST {{base}}/Books
+# Content-Type: application/json
+
+# {
+#   "title": "Bad Data Book",
+#   "price": "not-a-number"
+# }
+
+
+
+
+# ### 2.1 Read all books
+# GET {{base}}/Books
+
+# ### 2.2 Read single book (paste a valid ID)
+# GET {{base}}/Books(b1000001-0000-0000-0000-000000000001)
+
+# ### 2.3 Read a book that doesn't exist
+# GET {{base}}/Books(00000000-0000-0000-0000-000000000000)
+
+# ### 2.4 Deep read: Get the author of a specific book
+# GET {{base}}/Books(b1000001-0000-0000-0000-000000000002)/author
+
+# ### 2.5 Deep read: Get all books of an author
+# GET {{base}}/Authors(a1000001-0000-0000-0000-000000000001)/books
+
+# ### 2.6 Read with expand
+# GET {{base}}/Books?$expand=author&$select=title,price
+
+
+
+
+# ### 3.1 PATCH: Update only the price (other fields unchanged)
+# PATCH {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+# Content-Type: application/json
+
+# {
+#   "price": 16.99
+# }
+
+# ### 3.2 PATCH: Update stock and rating
+# PATCH {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+# Content-Type: application/json
+
+# {
+#   "stock": 120,
+#   "rating": 4.3
+# }
+
+# ### 3.3 Verify the update (read the book back)
+# GET {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+
+# ### 3.4 PUT: Full replacement (careful! missing fields become null)
+# PUT {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+# Content-Type: application/json
+
+# {
+#   "title": "The Da Vinci Code - Special Edition",
+#   "genre": "Thriller",
+#   "price": 19.99,
+#   "stock": 200,
+#   "rating": 4.5,
+#   "isbn": "9780307474278",
+#   "author_ID": "PASTE-AUTHOR-ID-HERE"
+# }
+
+# ### 3.5 Verify after PUT (check all fields)
+# GET {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+
+# ### 3.6 Update a non-existent record
+# PATCH {{base}}/Books(00000000-0000-0000-0000-000000000000)
+# Content-Type: application/json
+
+# {
+#   "price": 99.99
+# }
+
+
+
+
+
+
+# ### 4.1 Delete a book
+# DELETE {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+
+# ### 4.2 Verify it's gone
+# GET {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+
+# ### 4.3 Try to delete again (should return 404)
+# DELETE {{base}}/Books(b1000001-0000-0000-0000-000000000005)
+
+# ### 4.4 Try to delete from read-only service
+# DELETE http://localhost:4004/catalog/Books(b1000001-0000-0000-0000-000000000005)
+
+
+
+
+
+
+# @catalog = http://localhost:4004/catalog
+
+# ### 5.1 READ works on catalog (should succeed)
+# GET {{catalog}}/Books
+
+# ### 5.2 CREATE blocked on catalog
+# POST {{catalog}}/Books
+# Content-Type: application/json
+
+# {
+#   "title": "Test",
+#   "price": 1.00
+# }
+
+# ### 5.3 UPDATE blocked on catalog
+# PATCH {{catalog}}/Books(PASTE-ID)
+# Content-Type: application/json
+
+# {
+#   "price": 999.99
+# }
+
+# ### 5.4 DELETE blocked on catalog
+# DELETE {{catalog}}/Books(PASTE-ID)
+
+
+
+
+
+
+# GET http://localhost:4004/admin
+
+# GET http://localhost:4004/admin/Books
+
+# GET http://localhost:4004/admin/Authors
+
+# POST http://localhost:4004/admin/Books
+# Content-Type: application/json
+
+# {
+#   "title":"Harry Potter",
+#   "price":500,
+#   "stock":50,
+#   "isbn":"1234567890123",
+#   "genre":"Fantasy",
+#   "author_ID":"a1000001-0000-0000-0000-000000000001"
+# }
+
+
+
+# POST http://localhost:4004/admin/Books
+# Content-Type: application/json
+
+# {
+#   "title":"",
+#   "price":500
+# }
+
+
+
+
+
+# POST http://localhost:4004/admin/Books
+# Content-Type: application/json
+
+# {
+#   "title":"CAP Book",
+#   "price":500,
+#   "stock":20,
+#   "isbn":"1234567890123"
+# }
+
+
+# GET http://localhost:4004/admin/Books
+
+
+# PATCH http://localhost:4004/admin/Books(b1000001-0000-0000-0000-000000000005)
+# Content-Type: application/json
+
+# {
+#   "price":700
+# }
+
+
+# DELETE http://localhost:4004/admin/Books(b1000001-0000-0000-0000-000000000005)
+
+
+# POST http://localhost:4004/admin/Authors
+# Content-Type: application/json
+
+# {
+#   "name":"John",
+#   "email":"john@test.com"
+# }
+
+
+# DELETE http://localhost:4004/admin/Authors(a1000001-0000-0000-0000-000000000005)
