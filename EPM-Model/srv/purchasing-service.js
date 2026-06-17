@@ -621,4 +621,4 @@ this.before(['CREATE', 'UPDATE'], 'PurchaseOrderItems', async (req) => {
     console.log(`PO REJECTED: ${poNumber}, By: ${rejectedBy}, Reason: ${reason}`);
   });
 
-};
+};// Supplier validation logic
