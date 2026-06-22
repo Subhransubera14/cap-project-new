@@ -1,0 +1,32 @@
+{
+  "xsappname": "epm-model",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.View",
+      "description": "View EPM Data"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin Access"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Read Only Access",
+      "scope-references": [
+        "$XSAPPNAME.View"
+      ]
+    },
+    {
+      "name": "Administrator",
+      "description": "Full Access",
+      "scope-references": [
+        "$XSAPPNAME.View",
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ]
+}

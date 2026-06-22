@@ -2,7 +2,8 @@
   "name": "epm-complete",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^9"
+    "@sap/cds": "^9",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2.4",
@@ -19,6 +20,9 @@
         "credentials": {
           "url": "db/epm.db"
         }
+      },
+      "[production]": {
+        "auth": "xsuaa"
       }
     }
   },
