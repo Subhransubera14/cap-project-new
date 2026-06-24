@@ -34,7 +34,7 @@
         }
       },
       "auth": {
-        "kind": "xsuaa",
+        "kind": "dummy",
         "[development]": {
           "kind": "mocked",
           "user": "alice",
@@ -66,11 +66,10 @@
           }
         }
       },
-      "[production]": {
         "auth": {
-          "kind": "xsuaa"
+          "kind": "dummy"
         }
-      }
+      
     }
   }
 }

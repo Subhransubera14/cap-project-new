@@ -91,6 +91,7 @@ resources:
 
           redirect-uris:
             - https://~{app-api/app-uri}/*
+            - https://*~{app-api/app-uri}/**
 
     requires:
       - name: app-api
@@ -100,4 +101,3 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
-      
