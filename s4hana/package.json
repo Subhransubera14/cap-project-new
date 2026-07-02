@@ -1,0 +1,34 @@
+{
+  "name": "s4hana",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
+    "@sap/cds": "^9",
+    "better-sqlite3": "^12.11.1"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4",
+    "@sap/cds-dk": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "cds": {
+  "requires": {
+    "auth": {
+      "kind": "xsuaa"
+    },
+
+    "OP_API_BUSINESS_PARTNER_SRV": {
+      "kind": "odata-v2",
+      "model": "srv/external/OP_API_BUSINESS_PARTNER_SRV",
+      "credentials": {
+        "destination": "s4hana"
+      }
+    }
+  }
+}
+}

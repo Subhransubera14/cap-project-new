@@ -1,7 +1,7 @@
 {
   "_version": "1.85.0",
   "sap.app": {
-    "id": "com.epm.purchaseorders.purchaseordersapp",
+    "id": "ns.incidents",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -12,12 +12,12 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.26.0",
-      "toolsId": "eb085562-5def-4c54-9bc7-92480abc1c36"
+      "version": "1.27.0",
+      "toolsId": "8c6db526-5902-484f-8e59-bd3b5fa9e569"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/purchasing/",
+        "uri": "odata/v4/processor/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,14 +27,13 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "intent1": {
+        "incidents-display": {
+          "semanticObject": "incidents",
+          "action": "display",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
-          },
-          "semanticObject": "PurchaseOrders",
-          "action": "manage",
-          "title": "Manage Purchase Orders"
+          }
         }
       }
     }
@@ -73,7 +72,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "com.epm.purchaseorders.purchaseordersapp.i18n.i18n"
+          "bundleName": "ns.incidents.i18n.i18n"
         }
       },
       "": {
@@ -98,34 +97,28 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "PurchaseOrdersList",
-          "target": "PurchaseOrdersList"
+          "name": "IncidentsList",
+          "target": "IncidentsList"
         },
         {
-          "pattern": "PurchaseOrders({key}):?query:",
-          "name": "PurchaseOrdersObjectPage",
-          "target": "PurchaseOrdersObjectPage"
-        },
-        {
-          "pattern": "PurchaseOrders({key})/items({key2}):?query:",
-          "name": "PurchaseOrderItemsObjectPage",
-          "target": "PurchaseOrderItemsObjectPage"
+          "pattern": "Incidents({key}):?query:",
+          "name": "IncidentsObjectPage",
+          "target": "IncidentsObjectPage"
         }
       ],
       "targets": {
-        "PurchaseOrdersList": {
+        "IncidentsList": {
           "type": "Component",
-          "id": "PurchaseOrdersList",
+          "id": "IncidentsList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/PurchaseOrders",
-              "initialLoad": "Enabled",
+              "contextPath": "/Incidents",
               "variantManagement": "Page",
               "navigation": {
-                "PurchaseOrders": {
+                "Incidents": {
                   "detail": {
-                    "route": "PurchaseOrdersObjectPage"
+                    "route": "IncidentsObjectPage"
                   }
                 }
               },
@@ -135,50 +128,29 @@
                     "type": "ResponsiveTable"
                   }
                 }
-              }
+              },
+              "initialLoad": "Enabled"
             }
           }
         },
-        "PurchaseOrdersObjectPage": {
+        "IncidentsObjectPage": {
           "type": "Component",
-          "id": "PurchaseOrdersObjectPage",
+          "id": "IncidentsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/PurchaseOrders",
-              "content": {
-                "body": {
-                  "sections": {
-                    "customStockSection": {
-                      "template": "com.epm.purchaseorders.purchaseordersapp.ext.CustomSection",
-                      "title": "Stock Visualization",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "GeneralInfoSection"
-                      }
+              "contextPath": "/Incidents",
+              "controlConfiguration": {
+                "conversation/@com.sap.vocabularies.UI.v1.LineItem#i18nConversation": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "creationMode": {
+                      "name": "Inline"
                     }
                   }
                 }
-              },
-              "navigation": {
-                "items": {
-                  "detail": {
-                    "route": "PurchaseOrderItemsObjectPage"
-                  }
-                }
               }
-            }
-          }
-        },
-        "PurchaseOrderItemsObjectPage": {
-          "type": "Component",
-          "id": "PurchaseOrderItemsObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "entitySet": "PurchaseOrderItems",
-              "contextPath": "/PurchaseOrders/items"
             }
           }
         }
@@ -193,5 +165,9 @@
     "app": {
       "enableLazyLoading": true
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "incidentmanagement.service"
   }
 }
